@@ -1,25 +1,21 @@
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Pet pet = new Pet();
-        pet.species = "Dog";
-        pet.nickname = "Buddy";
-        pet.age = 5;
-        pet.trickLevel = 8;
-        pet.habits = new String[]{"barking", "playing fetch"};
+        Family myFamily = new Family(new Human("Alice", "Smith", 1980), new Human("Bob", "Smith", 1978));
 
-        Human human = new Human();
-        human.name = "John";
-        human.surname = "Doe";
-        human.year = 1990;
-        human.iq = 120;
-        human.pet = pet;
+        Human child1 = new Human("Charlie", "Smith", 2010);
+        Human child2 = new Human("David", "Smith", 2012);
 
-        System.out.println(human);
+        myFamily.addChild(child1);
+        myFamily.addChild(child2);
 
-        boolean result = human.feedPet(true);
+        System.out.println("Before deletion: " + Arrays.toString(myFamily.getChildren()));
 
+        boolean deleted = myFamily.deleteChild(new Human("Charlie", "Smith", 2010));
 
-        result = human.feedPet(false);
+        System.out.println("Deletion successful: " + deleted);
+        System.out.println("After deletion: " + Arrays.toString(myFamily.getChildren()));
+
     }
 }

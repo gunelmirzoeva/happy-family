@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Pet {
-    private String species;
+    private Species species;
     private String nickname;
     private int age;
     private int trickLevel; // from 1 to 100
@@ -14,11 +14,10 @@ public class Pet {
 //    {
 //        System.out.println("Creating a new pet object");
 //    }
-    public Pet(String species, String nickname) {
-        this.species = species;
+    public Pet(Species species, String nickname) {
         this.nickname = nickname;
     }
-    public Pet(String species, String nickname, int age, int trickLevel, String[] habits) {
+    public Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
         this.species = species;
         this.nickname = nickname;
         this.age = age;
@@ -28,12 +27,12 @@ public class Pet {
     public Pet(){
         
     }
-    public String getSpecies() {
+
+
+    public Species getSpecies() {
         return species;
     }
-    public void setSpecies(String species) {
-        this.species = species;
-    }
+
     public String getNickname(){
         return nickname;
     }

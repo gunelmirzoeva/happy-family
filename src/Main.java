@@ -38,8 +38,8 @@ public class Main {
             System.out.println("Today is: " + day.name());
         }
         System.out.println();
-        Pet dog1 = new Pet(Species.DOG, "Buddy", 2, 54, new String[]{"can run"});
+        //Pet dog1 = new Pet(Species.DOG, "Buddy", 2, 54, new String[]{"can run"});
 
-        System.out.println(dog1);
+       // System.out.println(dog1);
     }
 }

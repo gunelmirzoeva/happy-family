@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Pet {
+public abstract class Pet {
     private Species species;
     private String nickname;
     private int age;
@@ -14,23 +14,26 @@ public class Pet {
 //    {
 //        System.out.println("Creating a new pet object");
 //    }
-    public Pet(Species species, String nickname) {
+    public Pet(String nickname) {
         this.nickname = nickname;
     }
-    public Pet(Species species, String nickname, int age, int trickLevel, String[] habits) {
-        this.species = species;
+    public Pet(String nickname, int age, int trickLevel, String[] habits) {
+        this.species = Species.UNKNOWN;
         this.nickname = nickname;
         this.age = age;
         this.trickLevel = trickLevel;
         this.habits = habits;
     }
     public Pet(){
-        
+        this.species = Species.UNKNOWN;
     }
 
 
     public Species getSpecies() {
         return species;
+    }
+    public Species setSpecies(Species species) {
+        this.species = species;
     }
 
     public String getNickname(){
@@ -67,9 +70,7 @@ public class Pet {
     public void eat() {
         System.out.println("I'm eating");
     }
-    public void respond() {
-        System.out.printf("Hello owner. I'm %s. I miss you!\n", getNickname());
-    }
+    public abstract void respond();
     public void foul() {
         System.out.println("I need to cover it up");
     }

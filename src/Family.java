@@ -1,6 +1,7 @@
 import java.util.Arrays;
+import java.util.Random;
 
-public class Family {
+public class Family implements HumanCreator{
     private Human mother;
     private Human father;
     private Human[] children;
@@ -13,6 +14,8 @@ public class Family {
 //    {
 //        System.out.println("Creating a new family object");
 //    }
+    private static final String[] NAMES = {"Alex", "Chris", "Taylor", "Jordan", "Morgan", "Pat", "Sam", "Casey", "Riley", "Cameron"};
+
     public Family(Human mother, Human father) {
         if (mother == null || father == null) {
             throw new IllegalArgumentException("A family must have two parents.");
@@ -51,6 +54,30 @@ public class Family {
 
     public void setPet(Pet pet) {
         this.pet = pet;
+    }
+    @Override
+    public Human bornChild(){
+        Random random = new Random();
+        boolean isFemale = random.nextBoolean();
+        String surname = father.getSurname();
+        String name = NAMES[random.nextInt(NAMES.length)];
+        int iq = (mother.getIq() + father.getIq()) / 2;
+        Human child;
+
+        if (isFemale) {
+            child = new Woman(name, surname, random.nextInt(20), iq, this, null);
+        } else {
+            child = new Man(name, surname, random.nextInt(20), iq, this, null);
+        }
+        if(children == null){
+            children = new Human[]{child};
+        } else {
+            Human[] newChildren = new Human[children.length + 1];
+            System.arraycopy(children, 0, newChildren, 0, children.length);
+            newChildren[children.length] = child;
+            children = newChildren;
+        }
+        return child;
     }
     public void addChild(Human child) {
         if (child == null) {

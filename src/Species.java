@@ -1,28 +1,32 @@
 public enum Species {
     DOG(false, 4, true),
-    CAT(false, 4, true),
-    BIRD(true, 2, false),
-    FISH(false, 0, false);
+    DOMESTICCAT(false, 4, true),
+    ROBOCAT(false, 4, false),
+    FISH(false, 0, false),
+    UNKNOWN;
 
-    private final boolean canFly;
-    private final int numberOfLegs;
-    private final boolean hasFur;
+    private final Boolean canFly;
+    private final Integer numberOfLegs;
+    private final Boolean hasFur;
 
-    Species(boolean canFly, int numberOfLegs, boolean hasFur) {
+    Species(Boolean canFly, Integer numberOfLegs, Boolean hasFur) {
         this.canFly = canFly;
         this.numberOfLegs = numberOfLegs;
         this.hasFur = hasFur;
     }
-
-    public boolean canFly() {
+    Species() {
+        this.canFly = null;
+        this.numberOfLegs = null;
+        this.hasFur = null;
+    }
+    public Boolean canFly() {
         return canFly;
     }
 
-    public int getNumberOfLegs() {
+    public Integer getNumberOfLegs() {
         return numberOfLegs;
     }
-
-    public boolean hasFur() {
+    public Boolean hasFur() {
         return hasFur;
     }
 

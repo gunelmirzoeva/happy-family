@@ -1,5 +1,7 @@
+import java.util.Set;
+
 public class Dog extends Pet implements Foulable{
-    public Dog(String nickname, int age, int trickLevel, String[] habits){
+    public Dog(String nickname, int age, int trickLevel, Set<String> habits){
         super(nickname, age, trickLevel, habits);
         this.setSpecies(Species.DOG);
     }

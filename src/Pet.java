@@ -1,11 +1,11 @@
-import java.util.Arrays;
+import java.util.Set;
 
 public abstract class Pet {
     private Species species;
     private String nickname;
     private int age;
     private int trickLevel; // from 1 to 100
-    private String[] habits;
+    private Set<String> habits;
 
 //    static {
 //        System.out.println("Loading class Pet...");
@@ -17,7 +17,7 @@ public abstract class Pet {
     public Pet(String nickname) {
         this.nickname = nickname;
     }
-    public Pet(String nickname, int age, int trickLevel, String[] habits) {
+    public Pet(String nickname, int age, int trickLevel, Set<String> habits) {
         this.species = Species.UNKNOWN;
         this.nickname = nickname;
         this.age = age;
@@ -32,7 +32,7 @@ public abstract class Pet {
     public Species getSpecies() {
         return species;
     }
-    public Species setSpecies(Species species) {
+    public void setSpecies(Species species) {
         this.species = species;
     }
 
@@ -60,10 +60,10 @@ public abstract class Pet {
             this.trickLevel = trickLevel;
         }
     }
-    public String[] getHabits() {
+    public Set<String> getHabits() {
         return habits;
     }
-    public void setHabits(String[] habits) {
+    public void setHabits(Set<String> habits) {
         this.habits = habits;
     }
 
@@ -77,7 +77,7 @@ public abstract class Pet {
     @Override
     public String toString() {
         return String.format("%s\nnickname = %s\nage = %d\ntrick level = %d\nhabits = %s",
-                getSpecies(), getNickname(), getAge(), getTrickLevel(), Arrays.toString(getHabits()));
+                getSpecies(), getNickname(), getAge(), getTrickLevel(), habits);
     }
 
 }

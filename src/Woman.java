@@ -1,5 +1,7 @@
+import java.util.Map;
+
 public final class Woman extends Human {
-    public Woman(String name, String surname, int year, int iq, Family family, String[][] schedule) {
+    public Woman(String name, String surname, int year, int iq, Family family, Map<String, String> schedule) {
         super(name, surname, year, iq, family, schedule);
     }
 

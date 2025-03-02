@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
@@ -8,7 +8,7 @@ public class Human {
     private int year;//date of birth
     private int iq; // 50 to 200 will be more accurate
     private Family family;
-    private String[][] schedule;
+    private Map<String, String> schedule;
 //    static {
 //        System.out.println("Loading class Human...");
 //    }
@@ -31,7 +31,7 @@ public class Human {
 
     }
 
-    public Human(String name, String surname, int year, int iq, Family family, String[][] schedule) {
+    public Human(String name, String surname, int year, int iq, Family family, Map<String, String> schedule) {
         this.name = name;
         this.surname = surname;
         this.year = year;
@@ -80,10 +80,10 @@ public class Human {
         this.family = family;
     }
 
-    public String[][] getSchedule() {
+    public Map<String, String> getSchedule() {
         return schedule;
     }
-    public void setSchedule(String[][] schedule) {
+    public void setSchedule(Map<String, String> schedule) {
         this.schedule = schedule;
     }
 
@@ -115,7 +115,7 @@ public class Human {
     @Override
     public String toString() {
         return String.format("\n----------------------\nname = %s\nsurname = %s\nyear = %d\niq = %d\nschedule = %s\n" ,
-                getName(), getSurname(), getYear(), getIq(), Arrays.deepToString(getSchedule()));
+                getName(), getSurname(), getYear(), getIq(), schedule);
     }
 
     @Override

@@ -1,11 +1,10 @@
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Family implements HumanCreator{
     private Human mother;
     private Human father;
-    private Human[] children;
-    private Pet pet;
+    private List<Human> children;
+    private Set<Pet> pets;
 
 //    static {
 //        System.out.println("Loading class Family...");
@@ -22,7 +21,8 @@ public class Family implements HumanCreator{
         }
         this.mother = mother;
         this.father = father;
-        this.children = new Human[0];
+        this.children = new ArrayList<>();
+        this.pets = new HashSet<>();
     }
     public Human getMother() {
         return mother;
@@ -40,20 +40,20 @@ public class Family implements HumanCreator{
         this.father = father;
     }
 
-    public Human[] getChildren() {
+    public List<Human> getChildren() {
         return children;
     }
 
-    public void setChildren(Human[] children) {
+    public void setChildren(List<Human> children) {
         this.children = children;
     }
 
-    public Pet getPet() {
-        return pet;
+    public Set<Pet> getPets() {
+        return pets;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPets(Set<Pet> pets) {
+        this.pets = pets;
     }
     @Override
     public Human bornChild(){
@@ -69,71 +69,41 @@ public class Family implements HumanCreator{
         } else {
             child = new Man(name, surname, random.nextInt(20), iq, this, null);
         }
-        if(children == null){
-            children = new Human[]{child};
-        } else {
-            Human[] newChildren = new Human[children.length + 1];
-            System.arraycopy(children, 0, newChildren, 0, children.length);
-            newChildren[children.length] = child;
-            children = newChildren;
-        }
+        children.add(child);
         return child;
     }
     public void addChild(Human child) {
         if (child == null) {
             throw new IllegalArgumentException("Child cannot be null.");
         }
-        Human[] newChildren = Arrays.copyOf(children, children.length + 1);
-        newChildren[newChildren.length - 1] = child;
-        this.children = newChildren;
+        children.add(child);
         child.setFamily(this);
     }
     public boolean deleteChild(int index) {
-        if (index < 0 || index >= children.length) {
+        if (index < 0 || index >= children.size()) {
             return false;
         }
-        Human[] newChildren = new Human[children.length - 1];
-        for (int i = 0, j = 0; i < children.length; i++) {
-            if (i != index) {
-                newChildren[j++] = children[i];
-            }
-        }
-        children[index].setFamily(null);
-        children = newChildren;
+        children.get(index).setFamily(null);
+        children.remove(index);
         return true;
     }
     public boolean deleteChild(Human child) {
-        if (child == null || children.length == 0) {
+        if (child == null || children.isEmpty()) {
             return false;
         }
-        int indexToRemove = -1;
-        for (int i = 0; i < children.length; i++) {
-            if (children[i].equals(child)) {
-                indexToRemove = i;
-                break;
-            }
+        boolean removed = children.remove(child);
+        if(removed) {
+            child.setFamily(null);
         }
-        if (indexToRemove == -1) {
-            return false;
-        }
-        Human[] newChildren = new Human[children.length - 1];
-        for (int i = 0, j = 0; i < children.length; i++) {
-            if (i != indexToRemove) {
-                newChildren[j++] = children[i];
-            }
-        }
-
-        children[indexToRemove].setFamily(null);
-        children = newChildren;
-        return true;
+        return removed;
     }
     public int countFamily() {
-        return 2 + children.length;
+        return 2 + children.size();
     }
 
     @Override
     public String toString() {
         return String.format("Family\nmother = %s\nfather = %s\nchildren = %s\npet = %s",
-                getMother(), getFather(), Arrays.toString(getChildren()), getPet());
+                getMother(), getFather(), getChildren(), getPets());
     }
 }

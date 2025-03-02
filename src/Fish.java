@@ -1,5 +1,7 @@
+import java.util.Set;
+
 public class Fish extends Pet implements Foulable{
-    public Fish(String nickname, int age, int trickLevel, String[] habits){
+    public Fish(String nickname, int age, int trickLevel, Set<String> habits){
         super(nickname, age, trickLevel, habits);
         this.setSpecies(Species.FISH);
     }

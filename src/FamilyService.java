@@ -12,10 +12,7 @@ public class FamilyService {
         return familyDao.getAllFamilies();
     }
     public void displayAllFamilies() {
-        List<Family> families = getAllFamilies();
-        for (Family family : families) {
-            System.out.println(family);
-        }
+        getAllFamilies().forEach(System.out::println);
     }
     public List<Family> getFamiliesBiggerThan(int size) {
         return getAllFamilies().stream()
@@ -45,8 +42,8 @@ public class FamilyService {
 
     public Family bornChild(Family family, String masculine, String feminine) {
         String gender = Math.random() < 0.5 ? "male" : "female";
-        String childname = gender.equals("male")? masculine: feminine;
-        Human child = new Human(childname, family.getFather().getSurname(), 2025);
+        String childName = gender.equals("male")? masculine: feminine;
+        Human child = new Human(childName, family.getFather().getSurname(), 2025);
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;

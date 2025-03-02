@@ -15,7 +15,7 @@ public class Family implements HumanCreator{
 //    }
     private static final String[] NAMES = {"Alex", "Chris", "Taylor", "Jordan", "Morgan", "Pat", "Sam", "Casey", "Riley", "Cameron"};
 
-    public Family(Human mother, Human father) {
+    public Family(Human father, Human mother) {
         if (mother == null || father == null) {
             throw new IllegalArgumentException("A family must have two parents.");
         }
@@ -103,7 +103,7 @@ public class Family implements HumanCreator{
 
     @Override
     public String toString() {
-        return String.format("Family\nmother = %s\nfather = %s\nchildren = %s\npet = %s",
-                getMother(), getFather(), getChildren(), getPets());
+        return String.format("Family\nfather = %s\nmother = %s\nchildren = %s\npet = %s",
+                getFather(), getMother(), getChildren(), getPets());
     }
 }

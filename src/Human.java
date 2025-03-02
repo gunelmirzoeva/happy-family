@@ -1,3 +1,9 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -5,10 +11,10 @@ import java.util.Random;
 public class Human {
     private String name;
     private String surname;
-    private int year;//date of birth
+    private long birthDate;//date of birth
     private int iq; // 50 to 200 will be more accurate
     private Family family;
-    private Map<String, String> schedule;
+    private Map<DayOfWeek, String> schedule;
 //    static {
 //        System.out.println("Loading class Human...");
 //    }
@@ -16,25 +22,31 @@ public class Human {
 //    {
 //        System.out.println("Creating a new human object");
 //    }
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    public Human(String name, String surname, int year) {
+    public Human(String name, String surname, long birthDate) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
     }
 
-    public Human(String name, String surname, int year, Family family) {
+    public Human(String name, String surname, String birthDate, int iq) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
-        this.family = family;
+        this.iq = iq;
+        try {
+            Date date = dateFormat.parse(birthDate);
+            this.birthDate = date.getTime();
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("Invalid birth date format. Use dd/MM/yyyy");
+        }
 
     }
 
-    public Human(String name, String surname, int year, int iq, Family family, Map<String, String> schedule) {
+    public Human(String name, String surname, long birthDate, int iq, Family family, Map<DayOfWeek, String> schedule) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.iq = iq;
         this.family = family;
         this.schedule = schedule;
@@ -55,23 +67,17 @@ public class Human {
     public void setSurname(String surname) {
         this.surname = surname;
     }
-    public int getYear() {
-        return year;
+    public long getBirthDate() {
+        return birthDate;
     }
-    public void setYear(int year) {
-        this.year = year;
+    public void setBirthDate(long birthDate) {
+        this.birthDate = birthDate;
     }
     public int getIq() {
         return iq;
     }
     public void setIq(int iq) {
-        if (iq < 50) {
-            this.iq = 50;
-        } else if (iq > 200) {
-            this.iq = 200;
-        } else {
-            this.iq = iq;
-        }
+        this.iq = Math.min(200, Math.max(50, iq));
     }
     public Family getFamily() {
         return family;
@@ -80,11 +86,22 @@ public class Human {
         this.family = family;
     }
 
-    public Map<String, String> getSchedule() {
+    public Map<DayOfWeek, String> getSchedule() {
         return schedule;
     }
-    public void setSchedule(Map<String, String> schedule) {
+    public void setSchedule(Map<DayOfWeek, String> schedule) {
         this.schedule = schedule;
+    }
+
+    public String describeAge() {
+        if(birthDate < 0) {
+            return "Unknown age";
+        }
+        LocalDate birth = new Date(birthDate).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate today = LocalDate.now();
+        Period period = Period.between(birth, today);
+
+        return String.format("%d years, %d months, %d days", period.getYears(), period.getMonths(), period.getDays());
     }
 
     public void greetPet(Pet pet) {
@@ -93,7 +110,7 @@ public class Human {
 
     public void describePet(Pet pet) {
         String slyLevel = pet.getTrickLevel() > 50 ? "very sly" : "almost not sly";
-        System.out.printf("I have an %s is %d years old, he/she is %s", pet.getNickname(), pet.getAge(), slyLevel);
+        System.out.printf("I have an %s named %s , he/she is %d years old, he/she is %s\n", pet.getSpecies(), pet.getNickname(), pet.getAge(), slyLevel);
     }
 
     public boolean feedPet(boolean isTimeForFeeding, Pet pet) {
@@ -114,8 +131,10 @@ public class Human {
     }
     @Override
     public String toString() {
-        return String.format("\n----------------------\nname = %s\nsurname = %s\nyear = %d\niq = %d\nschedule = %s\n" ,
-                getName(), getSurname(), getYear(), getIq(), schedule);
+        String formattedDate = dateFormat.format(new Date(birthDate));
+        return String.format("\n----------------------\nname = %s\nsurname = %s\nbirthday = %s\niq = %d\nschedule = %s\n",
+                getName(), getSurname(), formattedDate, getIq(), schedule);
+
     }
 
     @Override
@@ -123,7 +142,7 @@ public class Human {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Human human = (Human) o;
-        return year == human.year &&
+        return birthDate == human.birthDate &&
                 iq == human.iq &&
                 Objects.equals(name, human.name) &&
                 Objects.equals(surname, human.surname);
@@ -131,7 +150,7 @@ public class Human {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, year, iq);
+        return Objects.hash(name, surname, birthDate, iq);
     }
 
 }

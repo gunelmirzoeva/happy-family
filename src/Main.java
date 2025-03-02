@@ -41,5 +41,29 @@ public class Main {
         //Pet dog1 = new Pet(Species.DOG, "Buddy", 2, 54, new String[]{"can run"});
 
        // System.out.println(dog1);
+        System.out.println("DAO operations");
+        FamilyDao familyDao = new CollectionFamilyDao();
+        FamilyService familyService = new FamilyService(familyDao);
+        FamilyController controller = new FamilyController(familyService);
+
+        Human father = new Human("John", "Smith", 1980);
+        Human mother = new Human("Jane", "Smith", 1982);
+        controller.createNewFamily(father, mother);
+
+        controller.displayAllFamilies();
+
+        Human adoptedChild = new Human("Emily", "Smith", 2015);
+        controller.adoptChild(controller.getFamilyById(0), adoptedChild);
+
+        controller.displayAllFamilies();
+
+        Human father2 = new Human("John", "Smith", 315532L, 120, null, null);
+        System.out.println(father.describeAge());
+        System.out.println(father2);
+
+        Human adoptedChild2 = new Human("Emily", "Smith", "20/03/2016", 95);
+        System.out.println(adoptedChild.describeAge());
+
+        System.out.println(adoptedChild2);
     }
 }

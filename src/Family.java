@@ -69,6 +69,9 @@ public class Family implements HumanCreator{
         } else {
             child = new Man(name, surname, random.nextInt(20), iq, this, null);
         }
+        if (countFamily() >= 10) {
+            throw new FamilyOverflowException("Family size cannot exceed 10 members.");
+        }
         children.add(child);
         return child;
     }
@@ -99,6 +102,19 @@ public class Family implements HumanCreator{
     }
     public int countFamily() {
         return 2 + children.size();
+    }
+
+    public String prettyFormat() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("family:\n");
+        sb.append("\tmother: ").append(mother.prettyFormat()).append("\n");
+        sb.append("\tfather: ").append(father.prettyFormat()).append("\n");
+        sb.append("\tchildren:\n");
+        for (Human child : children) {
+            sb.append("\t\t").append(child.prettyFormat()).append("\n");
+        }
+        sb.append("\tpets: ").append(pets);
+        return sb.toString();
     }
 
     @Override

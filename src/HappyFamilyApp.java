@@ -1,6 +1,4 @@
-import java.util.Arrays;
-
-public class Main {
+public class HappyFamilyApp {
     public static void main(String[] args) {
         Family myFamily = new Family(new Human("Alice", "Smith", 1980), new Human("Bob", "Smith", 1978));
 

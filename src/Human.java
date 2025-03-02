@@ -129,6 +129,15 @@ public class Human {
             }
         }
     }
+    public String prettyFormat() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{name='").append(name).append("', surname='").append(surname)
+                .append("', birthDate='").append(dateFormat.format(new Date(birthDate)))
+                .append("', iq=").append(iq)
+                .append(", schedule=").append(schedule).append("}");
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         String formattedDate = dateFormat.format(new Date(birthDate));

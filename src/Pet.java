@@ -71,8 +71,14 @@ public abstract class Pet {
         System.out.println("I'm eating");
     }
     public abstract void respond();
-    public void foul() {
-        System.out.println("I need to cover it up");
+    public String prettyFormat() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{species=").append(species)
+                .append(", nickname='").append(nickname).append('\'')
+                .append(", age=").append(age)
+                .append(", trickLevel=").append(trickLevel)
+                .append(", habits=").append(habits).append('}');
+        return sb.toString();
     }
     @Override
     public String toString() {

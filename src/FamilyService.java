@@ -12,7 +12,7 @@ public class FamilyService {
         return familyDao.getAllFamilies();
     }
     public void displayAllFamilies() {
-        getAllFamilies().forEach(System.out::println);
+        getAllFamilies().forEach(family -> System.out.println(family.prettyFormat()));
     }
     public List<Family> getFamiliesBiggerThan(int size) {
         return getAllFamilies().stream()
